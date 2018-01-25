@@ -4,11 +4,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @EqualsAndHashCode(exclude = {"name"})
@@ -23,7 +22,6 @@ public class Category implements Serializable {
      * Id of category.
      */
     @Getter
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -35,19 +33,25 @@ public class Category implements Serializable {
     @Setter
     private String name;
 
+    @Getter
+    @Setter
+    @ManyToMany(mappedBy = "categories")
+    private List<Product> products;
+
     /**
      * Standard constructor.
      */
-    public Category() {}
+    public Category() {
+        this.products = new ArrayList<>();
+    }
 
     /**
      * Constructor with parameters.
      *
-     * @param id    Id of category
      * @param name  Name of category
      */
-    public Category(final Integer id, final String name) {
-        this.id = id;
+    public Category(final String name) {
         this.name = name;
+        this.products = new ArrayList<>();
     }
 }
