@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"id"})
 public class Product implements Serializable {
 
     /**
@@ -20,19 +20,37 @@ public class Product implements Serializable {
      */
     private static final long serialVersionUID = 6277858260523055744L;
 
+    /**
+     * Product's id.
+     */
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    /**
+     * Product's name.
+     */
     @Getter
     @Setter
     private String name;
 
+    /**
+     * Product's price.
+     */
     @Getter
     @Setter
     private BigDecimal price;
 
+    /**
+     * List of categories who owns the product.
+     *
+     * The Many to Many relationship is made, in database, by the table product_has_category which has the columns
+     * category_id and product_id referencing {@link Category#id} and {@link Product#id} respectively.
+     *
+     * The annotation {@link JsonBackReference} says to not load the list when the product is requested.
+     * The idea is avoid cyclic references.
+     */
     @Getter
     @Setter
     @ManyToMany
@@ -41,10 +59,19 @@ public class Product implements Serializable {
     @JsonBackReference
     private List<Category> categories;
 
+    /**
+     * Standard contructor.
+     */
     public Product() {
         this.categories = new ArrayList<>();
     }
 
+    /**
+     * Constructor with parameters.
+     *
+     * @param name  Product's name
+     * @param price Product's price
+     */
     public Product(final String name, final BigDecimal price) {
         this.name = name;
         this.price = price;

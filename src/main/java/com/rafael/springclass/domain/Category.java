@@ -34,6 +34,13 @@ public class Category implements Serializable {
     @Setter
     private String name;
 
+    /**
+     * List of products owned by category.
+     *
+     * The Many to Many relationship is mapped by the list {@link Product#categories}
+     *
+     * The annotation {@link JsonManagedReference} says it's ok to load the list when the category is requested.
+     */
     @Getter
     @Setter
     @ManyToMany(mappedBy = "categories")
@@ -50,7 +57,7 @@ public class Category implements Serializable {
     /**
      * Constructor with parameters.
      *
-     * @param name  Name of category
+     * @param name Name of category
      */
     public Category(final String name) {
         this.name = name;
