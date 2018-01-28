@@ -1,5 +1,6 @@
 package com.rafael.springclass.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,7 @@ public class Category implements Serializable {
     @Getter
     @Setter
     @ManyToMany(mappedBy = "categories")
+    @JsonManagedReference
     private List<Product> products;
 
     /**

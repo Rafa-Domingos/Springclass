@@ -1,5 +1,6 @@
 package com.rafael.springclass.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class Product implements Serializable {
     @ManyToMany
     @JoinTable(name = "product_has_category", joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JsonBackReference
     private List<Category> categories;
 
     public Product() {
