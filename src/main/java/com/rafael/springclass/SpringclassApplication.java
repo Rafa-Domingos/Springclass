@@ -1,9 +1,13 @@
 package com.rafael.springclass;
 
 import com.rafael.springclass.domain.Category;
+import com.rafael.springclass.domain.City;
 import com.rafael.springclass.domain.Product;
+import com.rafael.springclass.domain.State;
 import com.rafael.springclass.repositories.CategoryRepository;
+import com.rafael.springclass.repositories.CityRepository;
 import com.rafael.springclass.repositories.ProductRepository;
+import com.rafael.springclass.repositories.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +24,12 @@ public class SpringclassApplication implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private StateRepository stateRepository;
+
+    @Autowired
+    private CityRepository cityRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringclassApplication.class, args);
@@ -43,5 +53,18 @@ public class SpringclassApplication implements CommandLineRunner {
 
 		this.categoryRepository.save(Arrays.asList(category1, category2));
 		this.productRepository.save(Arrays.asList(product1, product2, product3));
+
+		final State state1 = new State("Minas Gerais");
+        final State state2 = new State("São Paulo");
+
+        final City city1 = new City("Uberlândia", state1);
+        final City city2 = new City("São Paulo", state2);
+        final City city3 = new City("Campinas", state2);
+
+        state1.getCities().add(city1);
+        state2.getCities().addAll(Arrays.asList(city2, city3));
+
+        this.stateRepository.save(Arrays.asList(state1, state2));
+        this.cityRepository.save(Arrays.asList(city1, city2, city3));
 	}
 }
