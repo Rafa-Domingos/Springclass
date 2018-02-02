@@ -1,13 +1,8 @@
 package com.rafael.springclass;
 
-import com.rafael.springclass.domain.Category;
-import com.rafael.springclass.domain.City;
-import com.rafael.springclass.domain.Product;
-import com.rafael.springclass.domain.State;
-import com.rafael.springclass.repositories.CategoryRepository;
-import com.rafael.springclass.repositories.CityRepository;
-import com.rafael.springclass.repositories.ProductRepository;
-import com.rafael.springclass.repositories.StateRepository;
+import com.rafael.springclass.domain.*;
+import com.rafael.springclass.domain.enums.CustomerType;
+import com.rafael.springclass.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -30,6 +25,12 @@ public class SpringclassApplication implements CommandLineRunner {
 
     @Autowired
     private CityRepository cityRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringclassApplication.class, args);
@@ -66,5 +67,16 @@ public class SpringclassApplication implements CommandLineRunner {
 
         this.stateRepository.save(Arrays.asList(state1, state2));
         this.cityRepository.save(Arrays.asList(city1, city2, city3));
+
+        final Customer customer1 = new Customer("Maria", "maria@gmail.com", "3661666188", CustomerType.NATURAL);
+        customer1.getPhoneNumbers().addAll(Arrays.asList("26754432", "943760008"));
+
+        final Address address1 = new Address("Rua Flores", "300", "Apto 2", "Jardim", "08765-321", customer1, city1);
+        final Address address2 = new Address("Av. Matos", "99", null, "Centro", "07532-921", customer1, city2);
+
+        customer1.getAddresses().addAll(Arrays.asList(address1, address2));
+
+        this.customerRepository.save(customer1);
+        this.addressRepository.save(Arrays.asList(address1, address2));
 	}
 }
