@@ -1,5 +1,6 @@
 package com.rafael.springclass.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class State implements Serializable {
 
     @Getter
     @Setter
+    @JsonBackReference
     @OneToMany(mappedBy = "state")
     private List<City> cities;
 
