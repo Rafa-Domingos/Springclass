@@ -9,7 +9,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @EqualsAndHashCode(of = {"id"})
@@ -59,11 +62,17 @@ public class Product implements Serializable {
     @JsonBackReference
     private List<Category> categories;
 
+    @Getter
+    @Setter
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items;
+
     /**
      * Standard contructor.
      */
     public Product() {
         this.categories = new ArrayList<>();
+        this.items = new HashSet<>();
     }
 
     /**
@@ -76,5 +85,10 @@ public class Product implements Serializable {
         this.name = name;
         this.price = price;
         this.categories = new ArrayList<>();
+        this.items = new HashSet<>();
+    }
+
+    public List<PurchaseOrder> getPurchaseOrders() {
+        return this.items.stream().map(OrderItem::getPurchaseOrder).collect(Collectors.toList());
     }
 }

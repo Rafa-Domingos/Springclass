@@ -7,6 +7,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @EqualsAndHashCode(of = {"id"})
@@ -40,12 +42,19 @@ public class PurchaseOrder implements Serializable {
     @JoinColumn(name = "delivery_address_id")
     private Address deliveryAddress;
 
+    @Getter
+    @Setter
+    @OneToMany(mappedBy = "id.purchaseOrder")
+    private Set<OrderItem> items;
+
     public PurchaseOrder() {
+        this.items = new HashSet<>();
     }
 
     public PurchaseOrder(final Date instant, final Customer customer, final Address deliveryAddress) {
         this.instant = instant;
         this.customer = customer;
         this.deliveryAddress = deliveryAddress;
+        this.items = new HashSet<>();
     }
 }
