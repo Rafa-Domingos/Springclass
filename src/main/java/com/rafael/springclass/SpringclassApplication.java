@@ -2,6 +2,7 @@ package com.rafael.springclass;
 
 import com.rafael.springclass.domain.*;
 import com.rafael.springclass.domain.enums.CustomerType;
+import com.rafael.springclass.domain.enums.PaymentStatus;
 import com.rafael.springclass.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -31,6 +33,12 @@ public class SpringclassApplication implements CommandLineRunner {
 
     @Autowired
     private AddressRepository addressRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringclassApplication.class, args);
@@ -78,5 +86,19 @@ public class SpringclassApplication implements CommandLineRunner {
 
         this.customerRepository.save(customer1);
         this.addressRepository.save(Arrays.asList(address1, address2));
+
+        final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
+        final PurchaseOrder purchaseOrder1 = new PurchaseOrder(sdf.parse("30/09/2017 12:30"), customer1, address1);
+        final PurchaseOrder purchaseOrder2 = new PurchaseOrder(sdf.parse("10/10/2017 12:30"), customer1, address2);
+
+        final Payment payment1 = new CardPayment(PaymentStatus.SETTLED, purchaseOrder1, 6);
+        purchaseOrder1.setPayment(payment1);
+
+        final Payment payment2 = new TicketPayment(PaymentStatus.PENDING, purchaseOrder2, sdf.parse("20/10/2017 00:00"), null);
+        purchaseOrder2.setPayment(payment2);
+
+        this.orderRepository.save(Arrays.asList(purchaseOrder1, purchaseOrder2));
+        this.paymentRepository.save(Arrays.asList(payment1, payment2));
 	}
 }

@@ -45,15 +45,26 @@ public class Customer implements Serializable {
     @OneToMany(mappedBy = "customer")
     private List<Address> addresses;
 
+    /**
+     * {@link ElementCollection} - Maps a table for a list of non-entities
+     *
+     * {@link CollectionTable} - Specifies a table
+     */
     @Getter
     @Setter
     @ElementCollection
     @CollectionTable(name = "phone_numbers")
     private Set<String> phoneNumbers;
 
+    @Getter
+    @Setter
+    @OneToMany(mappedBy = "customer")
+    private List<PurchaseOrder> purchaseOrders;
+
     public Customer() {
         this.addresses = new ArrayList<>();
         this.phoneNumbers = new HashSet<>();
+        this.purchaseOrders = new ArrayList<>();
     }
 
     public Customer(final String name, final String email, final String document, final CustomerType customerType) {
@@ -63,6 +74,7 @@ public class Customer implements Serializable {
         this.customerType = customerType.getCode();
         this.addresses = new ArrayList<>();
         this.phoneNumbers = new HashSet<>();
+        this.purchaseOrders = new ArrayList<>();
     }
 
     public CustomerType getCustomerType() {
