@@ -1,7 +1,6 @@
 package com.rafael.springclass.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,14 +30,14 @@ public class PurchaseOrder implements Serializable {
     @Getter
     @Setter
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "purchaseOrder")
-    @JsonManagedReference
+
     private Payment payment;
 
     @Getter
     @Setter
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    @JsonManagedReference
+
     private Customer customer;
 
     @Getter

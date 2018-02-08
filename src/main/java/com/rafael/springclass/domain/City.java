@@ -1,6 +1,5 @@
 package com.rafael.springclass.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +24,7 @@ public class City implements Serializable {
 
     @Getter
     @Setter
-    @JsonManagedReference
+
     @ManyToOne
     @JoinColumn(name = "state_id")
     private State state;

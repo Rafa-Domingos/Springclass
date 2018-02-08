@@ -60,7 +60,7 @@ public class Product implements Serializable {
     @ManyToMany
     @JoinTable(name = "product_has_category", joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    @JsonBackReference
+    @JsonIgnore
     private List<Category> categories;
 
     @Getter

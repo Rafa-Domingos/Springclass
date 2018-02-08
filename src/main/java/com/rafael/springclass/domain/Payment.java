@@ -1,6 +1,6 @@
 package com.rafael.springclass.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rafael.springclass.domain.enums.PaymentStatus;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public abstract class Payment implements Serializable {
     @OneToOne
     @JoinColumn(name = "order_id")
     @MapsId
-    @JsonBackReference
+    @JsonIgnore
     private PurchaseOrder purchaseOrder;
 
     public Payment() {

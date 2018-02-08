@@ -44,7 +44,7 @@ public class Category implements Serializable {
     @Getter
     @Setter
     @ManyToMany(mappedBy = "categories")
-    @JsonManagedReference
+
     private List<Product> products;
 
     /**
