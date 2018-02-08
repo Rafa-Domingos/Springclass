@@ -1,5 +1,6 @@
 package com.rafael.springclass.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rafael.springclass.domain.enums.CustomerType;
 import lombok.EqualsAndHashCode;
@@ -59,6 +60,7 @@ public class Customer implements Serializable {
     @Getter
     @Setter
     @OneToMany(mappedBy = "customer")
+    @JsonBackReference
     private List<PurchaseOrder> purchaseOrders;
 
     public Customer() {

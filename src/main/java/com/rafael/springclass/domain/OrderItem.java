@@ -1,5 +1,6 @@
 package com.rafael.springclass.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,8 @@ public class OrderItem implements Serializable {
     private static final long serialVersionUID = -825405845976759422L;
 
     @EmbeddedId
+    @JsonIgnore
+    @Getter
     private OrderItemPK id;
 
     @Getter
@@ -24,7 +27,7 @@ public class OrderItem implements Serializable {
 
     @Getter
     @Setter
-    private Integer quanitty;
+    private Integer quantity;
 
     @Getter
     @Setter
@@ -35,15 +38,16 @@ public class OrderItem implements Serializable {
     }
 
     public OrderItem(final PurchaseOrder purchaseOrder, final Product product, final BigDecimal discount,
-                     final Integer quanitty, final BigDecimal price) {
+                     final Integer quantity, final BigDecimal price) {
         this.id = new OrderItemPK();
         this.id.setPurchaseOrder(purchaseOrder);
         this.id.setProduct(product);
         this.discount = discount;
-        this.quanitty = quanitty;
+        this.quantity = quantity;
         this.price = price;
     }
 
+    @JsonIgnore
     public PurchaseOrder getPurchaseOrder() {
         return this.id.getPurchaseOrder();
     }

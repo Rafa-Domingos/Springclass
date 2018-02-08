@@ -1,6 +1,7 @@
 package com.rafael.springclass.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -65,6 +66,7 @@ public class Product implements Serializable {
     @Getter
     @Setter
     @OneToMany(mappedBy = "id.product")
+    @JsonIgnore
     private Set<OrderItem> items;
 
     /**
@@ -88,6 +90,7 @@ public class Product implements Serializable {
         this.items = new HashSet<>();
     }
 
+    @JsonIgnore
     public List<PurchaseOrder> getPurchaseOrders() {
         return this.items.stream().map(OrderItem::getPurchaseOrder).collect(Collectors.toList());
     }

@@ -1,5 +1,6 @@
 package com.rafael.springclass.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.rafael.springclass.domain.enums.PaymentStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,10 +15,12 @@ public class TicketPayment extends Payment {
 
     @Getter
     @Setter
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date expireDate;
 
     @Getter
     @Setter
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date paymentDate;
 
     public TicketPayment() {}
