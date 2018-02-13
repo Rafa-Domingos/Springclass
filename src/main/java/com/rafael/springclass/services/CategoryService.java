@@ -31,4 +31,8 @@ public class CategoryService {
 
         return category;
     }
+
+    public Category save(final Category category) {
+        return this.categoryRepository.save(category);
+    }
 }
