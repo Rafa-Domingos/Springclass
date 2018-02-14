@@ -1,4 +1,4 @@
-package com.rafael.springclass.repositories.exceptions;
+package com.rafael.springclass.resources.exceptions;
 
 import lombok.Getter;
 import lombok.Setter;

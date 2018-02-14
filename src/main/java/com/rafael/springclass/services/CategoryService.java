@@ -2,8 +2,10 @@ package com.rafael.springclass.services;
 
 import com.rafael.springclass.domain.Category;
 import com.rafael.springclass.repositories.CategoryRepository;
+import com.rafael.springclass.services.exceptions.DataIntegrityException;
 import com.rafael.springclass.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,5 +41,14 @@ public class CategoryService {
     public Category update(final Category category) {
         this.getById(category.getId());
         return this.categoryRepository.save(category);
+    }
+
+    public void delete(final Integer id) {
+        this.getById(id);
+        try {
+            this.categoryRepository.delete(id);
+        } catch (final DataIntegrityViolationException e) {
+            throw new DataIntegrityException("Esta categoria não pode ser excluída pois está relacionada a produtos");
+        }
     }
 }

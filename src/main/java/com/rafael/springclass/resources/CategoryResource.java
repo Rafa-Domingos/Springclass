@@ -24,7 +24,6 @@ public class CategoryResource {
         return ResponseEntity.ok().body(this.categoryService.getById(id));
     }
 
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> save(@RequestBody final Category category) {
         final Category savedCategory = this.categoryService.save(category);
@@ -39,6 +38,12 @@ public class CategoryResource {
     public ResponseEntity<Void> update(@PathVariable final Integer id, @RequestBody final Category category) {
         category.setId(id);
         final Category savedCategory = this.categoryService.update(category);
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> remove(@PathVariable final Integer id) {
+        this.categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

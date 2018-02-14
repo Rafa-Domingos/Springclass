@@ -1,5 +1,6 @@
 package com.rafael.springclass.resources;
 
+import com.rafael.springclass.domain.Customer;
 import com.rafael.springclass.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class CustomerResource {
     private CustomerService customerService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<CustomerResource> getById(@PathVariable final Integer id) {
+    public ResponseEntity<Customer> getById(@PathVariable final Integer id) {
         return ResponseEntity.ok().body(this.customerService.getById(id));
     }
 }

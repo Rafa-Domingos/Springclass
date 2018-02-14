@@ -1,5 +1,6 @@
-package com.rafael.springclass.repositories.exceptions;
+package com.rafael.springclass.resources.exceptions;
 
+import com.rafael.springclass.services.exceptions.DataIntegrityException;
 import com.rafael.springclass.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,5 +19,14 @@ public class ResourceExceptionHandler {
                 new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+    }
+
+    @ExceptionHandler(DataIntegrityException.class)
+    public ResponseEntity<StandardError> dataIntegrity(final DataIntegrityException e,
+                                                        final HttpServletRequest request) {
+        final StandardError err =
+                new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 }
