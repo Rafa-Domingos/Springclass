@@ -1,5 +1,6 @@
 package com.rafael.springclass.resources;
 
+import com.rafael.springclass.domain.PurchaseOrder;
 import com.rafael.springclass.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class OrderResource {
     private OrderService orderService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable final Integer id) {
+    public ResponseEntity<PurchaseOrder> getById(@PathVariable final Integer id) {
         return ResponseEntity.ok().body(this.orderService.getById(id));
     }
 }

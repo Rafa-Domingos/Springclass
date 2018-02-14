@@ -20,7 +20,7 @@ public class CategoryResource {
     private CategoryService categoryService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable final Integer id) {
+    public ResponseEntity<Category> getById(@PathVariable final Integer id) {
         return ResponseEntity.ok().body(this.categoryService.getById(id));
     }
 
@@ -33,5 +33,12 @@ public class CategoryResource {
                 .buildAndExpand(savedCategory.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@PathVariable final Integer id, @RequestBody final Category category) {
+        category.setId(id);
+        final Category savedCategory = this.categoryService.update(category);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -19,7 +19,7 @@ public class CustomerResource {
     private CustomerService customerService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable final Integer id) {
+    public ResponseEntity<CustomerResource> getById(@PathVariable final Integer id) {
         return ResponseEntity.ok().body(this.customerService.getById(id));
     }
 }

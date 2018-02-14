@@ -35,4 +35,9 @@ public class CategoryService {
     public Category save(final Category category) {
         return this.categoryRepository.save(category);
     }
+
+    public Category update(final Category category) {
+        this.getById(category.getId());
+        return this.categoryRepository.save(category);
+    }
 }
