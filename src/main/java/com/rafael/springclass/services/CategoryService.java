@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
 
@@ -50,5 +52,9 @@ public class CategoryService {
         } catch (final DataIntegrityViolationException e) {
             throw new DataIntegrityException("Esta categoria não pode ser excluída pois está relacionada a produtos");
         }
+    }
+
+    public List<Category> list() {
+        return this.categoryRepository.findAll();
     }
 }

@@ -1,6 +1,7 @@
 package com.rafael.springclass.resources;
 
 import com.rafael.springclass.domain.Category;
+import com.rafael.springclass.dto.CategoryDTO;
 import com.rafael.springclass.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categories")
@@ -18,6 +21,13 @@ public class CategoryResource {
      */
     @Autowired
     private CategoryService categoryService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<CategoryDTO>> getById() {
+        final List<Category> categories = this.categoryService.list();
+        final List<CategoryDTO> categoryDTOList = categories.stream().map(CategoryDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(categoryDTOList);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Category> getById(@PathVariable final Integer id) {
