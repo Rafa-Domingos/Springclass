@@ -6,6 +6,9 @@ import com.rafael.springclass.services.exceptions.DataIntegrityException;
 import com.rafael.springclass.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,5 +59,11 @@ public class CategoryService {
 
     public List<Category> list() {
         return this.categoryRepository.findAll();
+    }
+
+    public Page<Category> listWithPagination(final Integer page, final Integer linesPerPage, final String orderBy,
+                                   final String direction) {
+        final PageRequest pageRequest = new PageRequest(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        return this.categoryRepository.findAll(pageRequest);
     }
 }

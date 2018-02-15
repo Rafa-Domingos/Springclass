@@ -51,6 +51,12 @@ public class SpringclassApplication implements CommandLineRunner {
 	public void run(String... strings) throws Exception {
 	    final Category category1 = new Category("Computing");
         final Category category2 = new Category("Office");
+        final Category category3 = new Category("Cat3");
+        final Category category4 = new Category("Cat4");
+        final Category category5 = new Category("Cat6");
+        final Category category6 = new Category("Cat7");
+        final Category category7 = new Category("Cat8");
+        final Category category8 = new Category("Cat9");
 
         final Product product1 = new Product("Laptop", new BigDecimal("100.00"));
         final Product product2 = new Product("Mouse", new BigDecimal("200.00"));
@@ -63,7 +69,7 @@ public class SpringclassApplication implements CommandLineRunner {
         product1.getCategories().addAll(Arrays.asList(category1, category2));
         product3.getCategories().add(category1);
 
-		this.categoryRepository.save(Arrays.asList(category1, category2));
+		this.categoryRepository.save(Arrays.asList(category1, category2, category3, category4, category5, category6, category7, category8));
 		this.productRepository.save(Arrays.asList(product1, product2, product3));
 
 		final State state1 = new State("Minas Gerais");
@@ -109,7 +115,7 @@ public class SpringclassApplication implements CommandLineRunner {
         final OrderItem orderItem3 = new OrderItem(purchaseOrder2, product2, new BigDecimal(100), 1, new BigDecimal(800));
 
         purchaseOrder1.getItems().addAll(Arrays.asList(orderItem1, orderItem2));
-        purchaseOrder2.getItems().addAll(Arrays.asList(orderItem3));
+        purchaseOrder2.getItems().add(orderItem3);
 
         product1.getItems().add(orderItem1);
         product2.getItems().add(orderItem3);

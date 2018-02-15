@@ -4,6 +4,7 @@ import com.rafael.springclass.domain.Category;
 import com.rafael.springclass.dto.CategoryDTO;
 import com.rafael.springclass.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,9 +24,20 @@ public class CategoryResource {
     private CategoryService categoryService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<CategoryDTO>> getById() {
+    public ResponseEntity<List<CategoryDTO>> list() {
         final List<Category> categories = this.categoryService.list();
         final List<CategoryDTO> categoryDTOList = categories.stream().map(CategoryDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(categoryDTOList);
+    }
+
+    @RequestMapping(value = "page", method = RequestMethod.GET)
+    public ResponseEntity<Page<CategoryDTO>> listWithPagination(
+            @RequestParam(value="page", defaultValue = "0") final Integer page,
+            @RequestParam(value="linesPerPage", defaultValue = "24") final Integer linesPerPage,
+            @RequestParam(value="orderBy", defaultValue = "name") final String orderBy,
+            @RequestParam(value="direction", defaultValue = "ASC") final String direction) {
+        final Page<Category> categories = this.categoryService.listWithPagination(page, linesPerPage, orderBy, direction);
+        final Page<CategoryDTO> categoryDTOList = categories.map(CategoryDTO::new);
         return ResponseEntity.ok().body(categoryDTOList);
     }
 
