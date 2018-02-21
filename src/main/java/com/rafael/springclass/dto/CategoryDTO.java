@@ -3,6 +3,8 @@ package com.rafael.springclass.dto;
 import com.rafael.springclass.domain.Category;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +25,8 @@ public class CategoryDTO  implements Serializable {
 
     @Getter
     @Setter
+    @NotEmpty(message = "required")
+    @Length(min = 5, max = 80, message = "Size must be between 5 and 80")
     private String name;
 
     public CategoryDTO() {

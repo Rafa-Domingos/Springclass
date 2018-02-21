@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,8 +48,8 @@ public class CategoryResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> save(@RequestBody final Category category) {
-        final Category savedCategory = this.categoryService.save(category);
+    public ResponseEntity<Void> save(@Valid @RequestBody final CategoryDTO categoryDTO) {
+        final Category savedCategory = this.categoryService.save(this.categoryService.fromDTO(categoryDTO));
 
         final URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedCategory.getId()).toUri();
@@ -57,7 +58,8 @@ public class CategoryResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@PathVariable final Integer id, @RequestBody final Category category) {
+    public ResponseEntity<Void> update(@PathVariable final Integer id, @Valid @RequestBody final CategoryDTO categoryDTO) {
+        final Category category = this.categoryService.fromDTO(categoryDTO);
         category.setId(id);
         final Category savedCategory = this.categoryService.update(category);
         return ResponseEntity.noContent().build();

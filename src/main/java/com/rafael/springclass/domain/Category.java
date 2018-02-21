@@ -64,4 +64,10 @@ public class Category implements Serializable {
         this.name = name;
         this.products = new ArrayList<>();
     }
+
+    public Category(final Integer id, final String name) {
+        this.id = id;
+        this.name = name;
+        this.products = new ArrayList<>();
+    }
 }

@@ -1,6 +1,7 @@
 package com.rafael.springclass.services;
 
 import com.rafael.springclass.domain.Category;
+import com.rafael.springclass.dto.CategoryDTO;
 import com.rafael.springclass.repositories.CategoryRepository;
 import com.rafael.springclass.services.exceptions.DataIntegrityException;
 import com.rafael.springclass.services.exceptions.ObjectNotFoundException;
@@ -65,5 +66,9 @@ public class CategoryService {
                                    final String direction) {
         final PageRequest pageRequest = new PageRequest(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return this.categoryRepository.findAll(pageRequest);
+    }
+
+    public Category fromDTO(final CategoryDTO categoryDTO) {
+        return new Category(categoryDTO.getId(), categoryDTO.getName());
     }
 }
