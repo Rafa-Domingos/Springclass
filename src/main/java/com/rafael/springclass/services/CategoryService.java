@@ -34,7 +34,7 @@ public class CategoryService {
         final Category category = this.categoryRepository.findOne(id);
 
         if (category == null) {
-            throw new ObjectNotFoundException("Objeto não encontrado. Id = " + id + ", tipo = " + Category.class.getName());
+            throw new ObjectNotFoundException("Object not found. Id = " + id + ", type = " + Category.class.getName());
         }
 
         return category;
@@ -54,7 +54,7 @@ public class CategoryService {
         try {
             this.categoryRepository.delete(id);
         } catch (final DataIntegrityViolationException e) {
-            throw new DataIntegrityException("Esta categoria não pode ser excluída pois está relacionada a produtos");
+            throw new DataIntegrityException("Cannot delete this category because it has products!");
         }
     }
 

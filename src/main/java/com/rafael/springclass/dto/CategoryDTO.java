@@ -6,9 +6,6 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.io.Serializable;
 
 public class CategoryDTO  implements Serializable {
@@ -25,8 +22,8 @@ public class CategoryDTO  implements Serializable {
 
     @Getter
     @Setter
-    @NotEmpty(message = "required")
-    @Length(min = 5, max = 80, message = "Size must be between 5 and 80")
+    @NotEmpty(message = "Name required")
+    @Length(min = 5, max = 80, message = "Name's size must be between 5 and 80 characters")
     private String name;
 
     public CategoryDTO() {
