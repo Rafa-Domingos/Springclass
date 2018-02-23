@@ -2,13 +2,16 @@ package com.rafael.springclass.resources;
 
 import com.rafael.springclass.domain.Customer;
 import com.rafael.springclass.dto.CustomerDTO;
+import com.rafael.springclass.dto.NewCustomerDTO;
 import com.rafael.springclass.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,6 +46,16 @@ public class CustomerResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Customer> getById(@PathVariable final Integer id) {
         return ResponseEntity.ok().body(this.customerService.getById(id));
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> save(@Valid @RequestBody final NewCustomerDTO newCustomerDTO) {
+        final Customer savedCustomer = this.customerService.save(this.customerService.fromDTO(newCustomerDTO));
+
+        final URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(savedCustomer.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
