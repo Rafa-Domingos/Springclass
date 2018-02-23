@@ -45,7 +45,7 @@ public class CategoryService {
     }
 
     public Category update(final Category category) {
-        this.getById(category.getId());
+        final Category updatedCategory = this.updateData(category);
         return this.categoryRepository.save(category);
     }
 
@@ -70,5 +70,13 @@ public class CategoryService {
 
     public Category fromDTO(final CategoryDTO categoryDTO) {
         return new Category(categoryDTO.getId(), categoryDTO.getName());
+    }
+
+    private Category updateData(final Category category) {
+        final Category categoryDB = this.getById(category.getId());
+
+        categoryDB.setName(category.getName());
+
+        return categoryDB;
     }
 }

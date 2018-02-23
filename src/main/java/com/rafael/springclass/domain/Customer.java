@@ -71,7 +71,10 @@ public class Customer implements Serializable {
         this.name = name;
         this.email = email;
         this.document = document;
-        this.customerType = customerType.getCode();
+        if (customerType != null) {
+            this.customerType = customerType.getCode();
+        }
+
         this.addresses = new ArrayList<>();
         this.phoneNumbers = new HashSet<>();
         this.purchaseOrders = new ArrayList<>();

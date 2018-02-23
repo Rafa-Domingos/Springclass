@@ -62,10 +62,6 @@ public class CustomerService {
     private Customer updateData(final Customer customer) {
         final Customer customerDB = this.getById(customer.getId());
 
-        if (customerDB == null || customer == null) {
-            throw new ObjectNotFoundException("Customer not found");
-        }
-
         customerDB.setName(customer.getName());
         customerDB.setEmail(customer.getEmail());
 
