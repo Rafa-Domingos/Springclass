@@ -41,7 +41,7 @@ public class Customer implements Serializable {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Address> addresses;
 
     /**
