@@ -1,6 +1,7 @@
 package com.rafael.springclass.dto;
 
 import com.rafael.springclass.domain.Customer;
+import com.rafael.springclass.services.validation.CustomerUpdate;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
@@ -9,6 +10,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 
+@CustomerUpdate
 public class CustomerDTO implements Serializable {
 
     private static final long serialVersionUID = -3128594235538662668L;
