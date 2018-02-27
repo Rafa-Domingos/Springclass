@@ -31,6 +31,7 @@ public class Customer implements Serializable {
 
     @Getter
     @Setter
+    @Column(unique = true)
     private String email;
 
     @Getter
